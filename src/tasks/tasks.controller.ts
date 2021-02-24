@@ -19,7 +19,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task } from './task.entity';
-import { TaskStatus } from './task-status.enum';
+import { TasksStatus } from './task-status.enum';
 import { User } from '../auth/user.entity';
 import { GetUser } from '../auth/get-user.decorator';
 
@@ -76,7 +76,7 @@ export class TasksController {
   @Patch('/:id/status')
   updateTaskStatus(
     @Param('id', ParseIntPipe) id: number,
-    @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @Body('status', TaskStatusValidationPipe) status: TasksStatus,
     @GetUser() user: User,
   ): Promise<Task> {
     return this.tasksService.updateTaskStatus(id, status, user);
