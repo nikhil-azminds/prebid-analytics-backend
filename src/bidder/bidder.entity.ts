@@ -5,7 +5,7 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { ParamType } from './param-type.entity';
+import { ParamType } from './ad-params.entity';
 
 @Entity()
 export class Bidder extends BaseEntity {
@@ -21,5 +21,5 @@ export class Bidder extends BaseEntity {
   @OneToMany((type) => ParamType, (paramType) => paramType.bidder, {
     eager: true,
   })
-  paramTypes: ParamType[];
+  adParams: ParamType[];
 }

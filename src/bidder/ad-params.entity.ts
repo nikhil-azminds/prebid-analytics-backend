@@ -15,6 +15,6 @@ export class ParamType extends BaseEntity {
   @Column()
   name: string;
 
-  @ManyToOne((type) => Bidder, (bid) => bid.paramTypes, { eager: false })
+  @ManyToOne((type) => Bidder, (bid) => bid.adParams, { eager: false })
   bidder: Bidder;
 }
