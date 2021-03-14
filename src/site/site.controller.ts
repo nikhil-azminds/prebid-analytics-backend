@@ -1,4 +1,27 @@
-import { Controller } from '@nestjs/common';
-
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Logger,
+} from '@nestjs/common';
+import { SiteEntity } from './site.entity';
+import { SiteService } from './site.service';
+import { CreateAdSiteDto } from './dto/create-ad-site.dto';
 @Controller('site')
-export class SiteController {}
+export class SiteController {
+  private logger = new Logger('SiteController');
+
+  constructor(private siteService: SiteService) {}
+
+  @Post()
+  createSite(@Body() createAdSiteDto: CreateAdSiteDto): Promise<SiteEntity> {
+    this.logger.verbose(
+      `creating a new task. Data: ${JSON.stringify(createAdSiteDto)}`,
+    );
+    return this.siteService.createSite(createAdSiteDto);
+  }
+}
