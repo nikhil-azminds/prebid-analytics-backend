@@ -1,10 +1,16 @@
-import { Logger, InternalServerErrorException } from '@nestjs/common';
+import {
+  Logger,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository, EntityRepository } from 'typeorm';
-import { CreateBidderDto } from './dto/create-bidder.dto';
-import { Bidder } from './bidder.entity';
 
-@EntityRepository(Bidder)
-export class BidderRepository extends Repository<Bidder> {
+import { BidderEntity } from './bidder.entity';
+import { CreateBidderDto } from './dto/create-ad-bidder.dto';
+import { UpdateBiddersDto } from './dto/update-ad-bidder.dto';
+
+@EntityRepository(BidderEntity)
+export class BidderRepository extends Repository<BidderEntity> {
   private logger = new Logger('BidderRepository');
 
   async getBidders() {
@@ -21,7 +27,7 @@ export class BidderRepository extends Repository<Bidder> {
 
   async createBidder(createBidderDto: CreateBidderDto) {
     const { name, email } = createBidderDto;
-    const bidder = new Bidder();
+    const bidder = new BidderEntity();
     bidder.name = name;
     bidder.email = email;
 

@@ -5,10 +5,10 @@ import {
   Column,
   OneToMany,
 } from 'typeorm';
-import { ParamType } from './ad-params.entity';
+import { AdParamEntity } from '../ad-param/ad-param.entity';
 
 @Entity()
-export class Bidder extends BaseEntity {
+export class BidderEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,8 +18,9 @@ export class Bidder extends BaseEntity {
   @Column()
   email: string;
 
-  @OneToMany((type) => ParamType, (paramType) => paramType.bidder, {
-    eager: true,
+  @OneToMany((type) => AdParamEntity, (param: AdParamEntity) => param.bidder, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
   })
-  adParams: ParamType[];
+  adParams: AdParamEntity[];
 }

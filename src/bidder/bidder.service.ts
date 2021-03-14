@@ -1,21 +1,35 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BidderRepository } from './bidder.repository';
-import { CreateBidderDto } from './dto/create-bidder.dto';
+import { Repository } from 'typeorm';
+
+import { BidderEntity } from './bidder.entity';
+import { AdParamEntity } from '../ad-param/ad-param.entity';
+import { CreateBidderDto } from './dto/create-ad-bidder.dto';
 
 @Injectable()
 export class BidderService {
   constructor(
-    @InjectRepository(BidderRepository)
-    private bidderRepository: BidderRepository,
+    @InjectRepository(BidderEntity)
+    private readonly bidderRepository: Repository<BidderEntity>,
+    @InjectRepository(AdParamEntity)
+    private readonly adParamRepository: Repository<AdParamEntity>,
   ) {}
 
-  async getBidders() {
-    return this.bidderRepository.getBidders();
-  }
+  async createBidder(createBidderDto: CreateBidderDto): Promise<BidderEntity> {
+    const bidder = new BidderEntity();
+    bidder.email = createBidderDto.email;
+    bidder.name = createBidderDto.name;
+    const newBidder = await this.bidderRepository.save(bidder);
 
-  async createBidder(createBidderDto: CreateBidderDto) {
-    return this.bidderRepository.createBidder(createBidderDto);
+    for (const param of createBidderDto.adParams) {
+      const adParam = new AdParamEntity();
+      adParam.name = param.name;
+      adParam.bidder = bidder;
+      await this.adParamRepository.save(adParam);
+
+      // bidder.adParams.push(adParam);
+    }
+
+    return newBidder;
   }
 }
