@@ -1,5 +1,8 @@
 import { IsString } from 'class-validator';
 
+import { CreateSchainDto } from './create-site-chain.dto';
+import { CreateGranularDto } from './create-site-granular.dto';
+
 export class CreateAdSiteDto {
   @IsString()
   readonly website: string;
@@ -13,20 +16,18 @@ export class CreateAdSiteDto {
   @IsString()
   readonly contact: string;
 
-  @IsString()
-  readonly AdBidders: string;
-
-  // @IsString({ each: true })
-  // readonly siteGranularity: string[];
-
-  @IsString({ each: true })
-  readonly schainConfig: string[];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  readonly bidders: object[];
 
   @IsString()
   readonly countries: string;
 
   @IsString()
   readonly currency: string;
+
+  readonly siteGranularity: CreateGranularDto[];
+
+  readonly schainConfig: CreateSchainDto[];
 
   @IsString()
   readonly enableAnalytics: boolean;
