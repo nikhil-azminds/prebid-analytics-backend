@@ -7,14 +7,14 @@ export class SGranularityEntity {
   id: number;
 
   @Column()
-  minimun: string;
+  minimum: string;
 
   @Column()
-  maxumum: string;
+  maximum: string;
 
   @Column()
   increment: string;
 
-  @ManyToOne((type) => SiteEntity, (site) => site.siteGranularity)
+  @ManyToOne(() => SiteEntity, (site) => site.siteGranularity)
   site: SiteEntity;
 }

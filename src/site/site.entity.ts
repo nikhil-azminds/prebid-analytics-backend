@@ -30,16 +30,12 @@ export class SiteEntity {
   enableAnalytics: boolean;
 
   // @JoinTable()
-  @OneToMany(
-    (type) => SGranularityEntity,
-    (siteGarnular) => siteGarnular.site,
-    {
-      cascade: true, // insert into database
-    },
-  )
+  @OneToMany(() => SGranularityEntity, (siteGarnular) => siteGarnular.site, {
+    cascade: true, // insert into database
+  })
   siteGranularity: SGranularityEntity[];
 
-  @OneToMany((type) => SChainEntity, (schain) => schain.site, {
+  @OneToMany(() => SChainEntity, (schain) => schain.site, {
     cascade: true, //insert into database
   })
   schainConfigs: SChainEntity[];

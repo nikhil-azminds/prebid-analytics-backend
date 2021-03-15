@@ -18,7 +18,7 @@ export class BidderEntity extends BaseEntity {
   @Column()
   email: string;
 
-  @OneToMany((type) => AdParamEntity, (param: AdParamEntity) => param.bidder, {
+  @OneToMany(() => AdParamEntity, (param: AdParamEntity) => param.bidder, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })

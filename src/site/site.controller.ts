@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Query,
   Delete,
   Get,
   Param,
@@ -11,6 +12,8 @@ import {
 import { SiteEntity } from './site.entity';
 import { SiteService } from './site.service';
 import { CreateAdSiteDto } from './dto/create-ad-site.dto';
+import { PaginationQueryDto } from '../commom/dto/pagination-query.dto';
+
 @Controller('site')
 export class SiteController {
   private logger = new Logger('SiteController');
@@ -23,5 +26,20 @@ export class SiteController {
       `creating a new task. Data: ${JSON.stringify(createAdSiteDto)}`,
     );
     return this.siteService.createSite(createAdSiteDto);
+  }
+
+  @Get()
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.siteService.findAll(paginationQuery);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.siteService.findOne('' + id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.siteService.remove(id);
   }
 }

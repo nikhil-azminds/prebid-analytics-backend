@@ -2,7 +2,7 @@ import { IsString } from 'class-validator';
 
 export class CreateGranularDto {
   @IsString()
-  readonly minimun: string;
+  readonly minimum: string;
 
   @IsString()
   readonly maximum: string;

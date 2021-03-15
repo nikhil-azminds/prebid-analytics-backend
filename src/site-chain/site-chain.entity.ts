@@ -22,6 +22,6 @@ export class SChainEntity {
   @Column()
   hp: string;
 
-  @ManyToOne((type) => SiteEntity, (site) => site.schainConfigs)
+  @ManyToOne(() => SiteEntity, (site) => site.schainConfigs)
   site: SiteEntity;
 }
